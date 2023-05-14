@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+                    <!--  Progress bar  -->
+    <color name="progress_bar_background_black">#59FFFFFF</color>
+    <color name="progress_bar_progress_black">#BDBDBD</color>
+
+
+                     <!--  custom  -->
+    <color name="main_light">#17163D</color>
+    <color name="main_dark">#04032A</color>
+    <color name="green">#28CF2E</color>
+    <color name="red">#CF2828</color>
+
+
+</resources>
