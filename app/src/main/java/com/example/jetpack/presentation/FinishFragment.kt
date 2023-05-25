@@ -30,7 +30,9 @@ class FinishFragment : Fragment() {
     }
 
     private fun parseArgs(){
-        gameResult = requireArguments().getSerializable(KEY_GAME_RESULT) as GameResult
+        requireArguments().getParcelable<GameResult>(KEY_GAME_RESULT)?.let {
+            gameResult = it
+        }
     }
 
     override fun onDestroyView() {
@@ -45,7 +47,7 @@ class FinishFragment : Fragment() {
         fun newInstance(gameResult: GameResult):FinishFragment {
             return FinishFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_GAME_RESULT,gameResult)
+                    putParcelable(KEY_GAME_RESULT,gameResult)
                 }
             }
         }
