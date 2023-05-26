@@ -61,7 +61,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/background_button_choice_level"
-            android:backgroundTint="#C8C500"
+            android:backgroundTint="#E4E100"
             android:fontFamily="@font/akshar_semibold"
             android:text="normal"
             android:textColor="@color/white"

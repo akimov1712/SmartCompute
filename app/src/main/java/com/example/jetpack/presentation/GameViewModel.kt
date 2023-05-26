@@ -4,7 +4,8 @@ import android.os.CountDownTimer
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.jetpack.data.GameReposituryImpl
+import com.example.jetpack.data.GameRepositoryImpl
+import com.example.jetpack.domain.entity.GameResult
 import com.example.jetpack.domain.entity.GameSettings
 import com.example.jetpack.domain.entity.Level
 import com.example.jetpack.domain.entity.Question
@@ -20,10 +21,18 @@ class GameViewModel: ViewModel() {
     private var countRightAnswers = 0
     private var countQuestions = 0
 
-    private val repository = GameReposituryImpl
+    private val repository = GameRepositoryImpl
 
     private val generateQuestionsUseCase = GenerateQuestionsUseCase(repository)
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
+
+    private val _countRight = MutableLiveData<String>()
+    val countRight: LiveData<String>
+        get() = _countRight
+
+    private val _countWrong = MutableLiveData<String>()
+    val countWrong: LiveData<String>
+        get() = _countWrong
 
     private val _formattedTime = MutableLiveData<String>()
     val formattedTime: LiveData<String>
@@ -36,6 +45,22 @@ class GameViewModel: ViewModel() {
     private val _percentRightAnswers = MutableLiveData<Int>()
     val percentRightAnswers: LiveData<Int>
     get() = _percentRightAnswers
+
+    private val _enoughCount = MutableLiveData<Boolean>()
+    val enoughCount: LiveData<Boolean>
+        get() = _enoughCount
+
+    private val _enoughPercent = MutableLiveData<Boolean>()
+    val enoughPercent: LiveData<Boolean>
+        get() = _enoughPercent
+
+    private val _minPercent = MutableLiveData<Int>()
+    val minPercent: LiveData<Int>
+        get() = _minPercent
+
+    private val _gameResult = MutableLiveData<GameResult>()
+    val gameResult: LiveData<GameResult>
+        get() = _gameResult
 
     fun startGame(level: Level){
         getGameSettings(level)
@@ -52,10 +77,12 @@ class GameViewModel: ViewModel() {
     private fun updateProgress(){
         val percent = calculatePercentOfRightAnswers()
         _percentRightAnswers.value = percent
+        _enoughCount.value = countRightAnswers >= gameSettings.minCount
+        _enoughPercent.value = percent >= gameSettings.minPercent
     }
 
     private fun calculatePercentOfRightAnswers():Int{
-        return ((countRightAnswers / countRightAnswers.toDouble()) * 100).toInt()
+        return ((countRightAnswers / countQuestions.toDouble()) * 100).toInt()
     }
 
     private fun checkAnswer(number: Int) {
@@ -64,6 +91,8 @@ class GameViewModel: ViewModel() {
             countRightAnswers++
         }
         countQuestions++
+        _countRight.value = countRightAnswers.toString()
+        _countWrong.value = (countQuestions - countRightAnswers).toString()
     }
 
     private fun generateQuestions(){
@@ -73,6 +102,7 @@ class GameViewModel: ViewModel() {
     private fun getGameSettings(level: Level) {
         this.level = level
         this.gameSettings = getGameSettingsUseCase(level)
+        _minPercent.value = gameSettings.minPercent
     }
 
     private fun startTimer(){
@@ -85,7 +115,7 @@ class GameViewModel: ViewModel() {
             }
 
             override fun onFinish() {
-                TODO("Not yet implemented")
+                finishGame()
             }
         }
         timer?.start()
@@ -99,7 +129,12 @@ class GameViewModel: ViewModel() {
     }
 
     private fun finishGame(){
-
+        _gameResult.value = GameResult(
+            enoughCount.value == true && enoughPercent.value == true,
+            countRightAnswers,
+            countQuestions,
+            gameSettings
+        )
     }
 
     override fun onCleared() {

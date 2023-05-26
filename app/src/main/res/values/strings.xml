@@ -2,8 +2,8 @@
     <string name="app_name">JetPack</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="right_answer">Необходимое кол-во правильных ответов: %s</string>
-    <string name="you_points">Ваш счет: %s</string>
-    <string name="require_percent_answers">Необходимый процент правильных ответов: %s</string>
-    <string name="result_percent_answers">Процент правильных ответов: %s</string>
+    <string name="require_right_answer">Необходимое кол-во правильных ответов: </string>
+    <string name="result_right_answer">Ваш счет: </string>
+    <string name="require_percent_answers">Необходимый процент правильных ответов: </string>
+    <string name="result_percent_answers">Процент правильных ответов: </string>
 </resources>

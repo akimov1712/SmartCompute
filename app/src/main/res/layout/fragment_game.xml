@@ -39,8 +39,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/icon_tick"
+                android:layout_marginStart="50dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_correct"
-                app:layout_constraintEnd_toStartOf="@+id/tv_correct"
                 app:layout_constraintStart_toStartOf="@+id/constraintLayout"
                 app:layout_constraintTop_toTopOf="@+id/tv_correct" />
 
@@ -71,9 +71,9 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:src="@drawable/icon_stop"
+                android:layout_marginEnd="50dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_incorrect"
                 app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
-                app:layout_constraintStart_toEndOf="@+id/tv_incorrect"
                 app:layout_constraintTop_toTopOf="@+id/tv_incorrect" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:fontFamily="@font/akshar_regular"
-                android:text="3"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView2"
@@ -108,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:fontFamily="@font/akshar_regular"
-                android:text="2"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="34sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView2"
@@ -120,7 +120,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/akshar_regular"
-                android:text="52%"
+                android:text="100%"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/pBar_next_lvl"
@@ -135,11 +135,13 @@
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/background_progressbar"
                 android:padding="1dp"
-                android:progress="60"
-                android:progressDrawable="@drawable/style_progress_bar"
+                android:progress="100"
+                android:secondaryProgress="100"
+                android:secondaryProgressTint="#808080"
+                android:progressDrawable="@drawable/style_correct_progress_bar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent" />
 
 
@@ -191,68 +193,87 @@
             app:layout_constraintStart_toStartOf="@+id/tv_sum"
             app:layout_constraintTop_toBottomOf="@+id/tv_sum" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_option1"
-            style="@style/options"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_option2"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_option2"
-            style="@style/options"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/background_option"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_option3"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_option1" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_option3"
-            style="@style/options"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_option2" />
+            app:layout_constraintStart_toStartOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_option4"
-            style="@style/options"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_option1"
+                style="@style/options"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_option2"
+                style="@style/options"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_option3"
+                style="@style/options"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="100dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_option1"
-            app:layout_constraintEnd_toStartOf="@+id/btn_option5"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_option5"
-            style="@style/options"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:background="@drawable/background_option"
-            app:layout_constraintBottom_toTopOf="@+id/btn_option2"
-            app:layout_constraintEnd_toStartOf="@+id/btn_option6"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_option4" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_option6"
-            style="@style/options"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_option3"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/btn_option5" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_option4"
+                style="@style/options"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_option5"
+                style="@style/options"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_option6"
+                style="@style/options"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
