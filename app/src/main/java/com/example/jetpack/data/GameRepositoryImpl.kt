@@ -19,8 +19,8 @@ object GameRepositoryImpl: GameRepository {
         val options = HashSet<Int>()
         val rightNumber = sum - visibleNumber
         options.add(rightNumber)
-        val from = max(rightNumber - countOptions, MIN_VISIBLE_NUMBER)
-        val to = min(maxSumValue, rightNumber + countOptions)
+        val from = max(rightNumber - 30, MIN_VISIBLE_NUMBER)
+        val to = min(maxSumValue, rightNumber + 30)
         while (options.size < countOptions){
             options.add(Random.nextInt(from,to))
         }
@@ -32,7 +32,7 @@ object GameRepositoryImpl: GameRepository {
             Level.TEST -> GameSettings(10, 3, 50, 10)
             Level.EASY -> GameSettings(30, 5, 50, 30)
             Level.NORMAL -> GameSettings(80, 10, 70, 45)
-            Level.HARD -> GameSettings(280, 20, 95, 60)
+            Level.HARD -> GameSettings(280, 20, 90, 70)
         }
     }
 }
