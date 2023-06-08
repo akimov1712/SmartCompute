@@ -1,51 +1,42 @@
 package com.example.jetpack.presentation
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.jetpack.App
-import com.example.jetpack.databinding.ActivityMainBinding
-import com.yandex.mobile.ads.banner.AdSize
+import com.example.jetpack.R
 import com.yandex.mobile.ads.common.AdRequest
 import com.yandex.mobile.ads.common.AdRequestError
 import com.yandex.mobile.ads.common.ImpressionData
 import com.yandex.mobile.ads.interstitial.InterstitialAd
 import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
-    private val adRequestBanner by lazy{
-        AdRequest.Builder().build()
-    }
-    private val bannerAdView by lazy {
-        binding.bannerView
-    }
+class AdActivity : AppCompatActivity() {
 
     private val interstitialAd by lazy {
         InterstitialAd(this)
     }
-    private val adRequestFullscreen by lazy{
+    private val adRequest by lazy{
         AdRequest.Builder().build()
     }
 
+    private var state = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        with(bannerAdView){
-            setAdUnitId(App.ADD_UNIT_ID_BANNER)
-            setAdSize(AdSize.BANNER_320x50)
-            loadAd(adRequestBanner)
-        }
+        setContentView(R.layout.activity_ad)
         with(interstitialAd){
             setAdUnitId(App.ADD_UNIT_ID_FULLSCREEN)
             setInterstitialAdEventListener(object: InterstitialAdEventListener {
                 override fun onAdLoaded() {
                     show()
+                    state = true
                 }
 
                 override fun onAdFailedToLoad(p0: AdRequestError) {
-                    interstitialAd.loadAd(adRequestFullscreen)
+                    interstitialAd.loadAd(adRequest)
                 }
 
                 override fun onAdShown() {
@@ -72,6 +63,19 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
-        interstitialAd.loadAd(adRequestFullscreen)
+        interstitialAd.loadAd(adRequest)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (state){
+            finish()
+        }
+    }
+
+    companion object{
+        fun newIntent(context: Context): Intent{
+            return Intent(context, AdActivity::class.java)
+        }
     }
 }

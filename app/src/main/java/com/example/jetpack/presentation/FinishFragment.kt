@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.jetpack.App
 import com.example.jetpack.R
 import com.example.jetpack.databinding.FragmentFinishBinding
 import com.example.jetpack.domain.entity.GameResult
+import com.yandex.mobile.ads.common.AdRequest
+import com.yandex.mobile.ads.common.AdRequestError
+import com.yandex.mobile.ads.common.ImpressionData
+import com.yandex.mobile.ads.interstitial.InterstitialAd
+import com.yandex.mobile.ads.interstitial.InterstitialAdEventListener
 
 class FinishFragment : Fragment() {
 
     private lateinit var gameResult: GameResult
+
 
     private var _binding: FragmentFinishBinding? = null
     private val binding: FragmentFinishBinding
@@ -33,6 +40,8 @@ class FinishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val intent = AdActivity.newIntent(requireContext())
+        startActivity(intent)
         setupClickListeners()
         setupValueInViews()
     }
